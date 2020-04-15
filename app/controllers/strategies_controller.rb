@@ -6,11 +6,19 @@ class StrategiesController < ApiController
     @strategies = Strategy.all
 
     render json: @strategies
+  #   # @strategy_id = Strategy.eager_load(:holdings, :holdings_currents)
+  #   #               .find(params[:strategy_id])
+  #   @holdings = @strategy.holdings.build
+  #   @holdings_id = @holdings.eager_load(:holdings_currents)
+  #                           .find(params[:holding_id])
+  #   @holdings_currents = @holdings_id.holdings_currents.build
+
   end
 
   # GET /strategies/1
   def show
     render json: @strategy
+    
   end
 
   # POST /strategies
@@ -42,7 +50,30 @@ class StrategiesController < ApiController
     # Use callbacks to share common setup or constraints between actions.
     def set_strategy
       @strategy = Strategy.find(params[:id])
+      # begin
+      #   @strategy = Strategy.find(params[:id])
+      # rescue ActiveRecord::RecordNotFound => e
+      #   @strategy = nil
+      # end
+      # begin
+      #   @holding = Holding.find(params[:holding_id])
+      # rescue ActiveRecord::RecordNotFound => e
+      #   @holding = nil
+      # end
+      # begin
+      #   @holdings_current = HoldingsCurrent.find(params[:holdings_current_id])
+      # rescue ActiveRecord::RecordNotFound => e
+      #   @holdings_current = nil
+      # end
     end
+
+    # def set_holdings_current
+    #   @holdings_current = HoldingsCurrent.find(params[:holdings_current_id])
+    # end
+
+    # def set_holding
+    #   @holding = Holding.find(params[:holding_id])
+    # end
 
     # Only allow a trusted parameter "white list" through.
     def strategy_params

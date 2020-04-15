@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_12_082639) do
+ActiveRecord::Schema.define(version: 2020_04_15_183811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,41 @@ ActiveRecord::Schema.define(version: 2020_04_12_082639) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "holdings_currents", force: :cascade do |t|
+    t.string "ticker"
+    t.string "weight"
+    t.string "return"
+    t.string "return_dollars"
+    t.string "rank"
+    t.integer "shares"
+    t.string "avg_share_cost"
+    t.string "current_price"
+    t.string "value"
+    t.integer "days_held"
+    t.string "strategy_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "sector"
+    t.bigint "strategy_id"
+    t.index ["strategy_id"], name: "index_holdings_currents_on_strategy_id"
+  end
+
+  create_table "holdings_returns", force: :cascade do |t|
+    t.string "return_link"
+    t.string "return_link_href"
+    t.string "ticker"
+    t.string "one_day"
+    t.string "last_close"
+    t.string "change"
+    t.string "weight_return"
+    t.string "one_week"
+    t.string "four_weeks"
+    t.string "eight_weeks"
+    t.string "thirteen_weeks"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "stocks", force: :cascade do |t|
     t.string "ticker"
     t.string "company_name"
@@ -87,11 +122,11 @@ ActiveRecord::Schema.define(version: 2020_04_12_082639) do
     t.string "return"
     t.string "return_dollars"
     t.string "rank"
-    t.integer "shares"
+    t.string "shares"
     t.string "avg_share_cost"
     t.string "current_price"
     t.string "value"
-    t.integer "days_held"
+    t.string "days_held"
     t.string "sector"
     t.string "return_link"
     t.string "return_link_href"
@@ -117,7 +152,7 @@ ActiveRecord::Schema.define(version: 2020_04_12_082639) do
     t.string "historical_link"
     t.string "historical_link_href"
     t.string "cost"
-    t.time "open_date"
+    t.string "open_date"
     t.integer "number_of_days"
     t.string "pct_historical"
     t.string "summary_link"
@@ -164,6 +199,7 @@ ActiveRecord::Schema.define(version: 2020_04_12_082639) do
     t.string "snp_500_spy_risk"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "strategy_name"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

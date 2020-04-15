@@ -8,11 +8,11 @@ class CreateStrategies < ActiveRecord::Migration[6.0]
       t.string :return
       t.string :return_dollars
       t.string :rank
-      t.integer :shares
+      t.string :shares
       t.string :avg_share_cost
       t.string :current_price
       t.string :value
-      t.integer :days_held
+      t.string :days_held
       t.string :sector
       t.string :return_link
       t.string :return_link_href
@@ -38,7 +38,7 @@ class CreateStrategies < ActiveRecord::Migration[6.0]
       t.string :historical_link
       t.string :historical_link_href
       t.string :cost
-      t.time :open_date
+      t.string :open_date
       t.integer :number_of_days
       t.string :pct_historical
       t.string :summary_link
