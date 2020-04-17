@@ -11,7 +11,7 @@ class CreateHoldingsCurrents < ActiveRecord::Migration[6.0]
       t.string :current_price
       t.string :value
       t.integer :days_held
-      t.sector :sector
+      t.string :sector
       t.string :strategy_name
       t.bigint :strategy_id
 
