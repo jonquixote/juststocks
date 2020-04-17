@@ -46,6 +46,6 @@ class HoldingsCurrentsController < ApiController
 
     # Only allow a trusted parameter "white list" through.
     def holdings_current_params
-      params.require(:holdings_current).permit(:ticker, :weight, :return, :return_dollars, :rank, :shares, :avg_share_cost, :current_price, :value, :days_held, :strategy_name, :sector)
+      params.require(:holdings_current).permit(:ticker, :weight, :return, :return_dollars, :rank, :shares, :avg_share_cost, :current_price, :value, :days_held, :sector, :strategy_name, :strategy_id)
     end
 end

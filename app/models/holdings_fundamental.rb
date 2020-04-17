@@ -1,0 +1,2 @@
+class HoldingsFundamental < ApplicationRecord
+end

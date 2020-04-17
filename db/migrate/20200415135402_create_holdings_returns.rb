@@ -12,6 +12,8 @@ class CreateHoldingsReturns < ActiveRecord::Migration[6.0]
       t.string :four_weeks
       t.string :eight_weeks
       t.string :thirteen_weeks
+      t.string :strategy_name
+      t.bigint :strategy_id
 
       t.timestamps
     end

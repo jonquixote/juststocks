@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 	resources :strategies do
 	  resources :holdings_currents
   	  resources :holdings_returns
+  	  resources :holdings_fundamentals
+  	  resources :holdings_historicals
 	end
 	resources :stocks
 	resources :drinks

@@ -83,6 +83,7 @@ class CreateStrategies < ActiveRecord::Migration[6.0]
       t.string :risk_name
       t.string :model_risk
       t.string :snp_500_spy_risk
+      t.string :strategy_name
 
       t.timestamps
     end

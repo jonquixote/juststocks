@@ -46,6 +46,6 @@ class HoldingsReturnsController < ApiController
 
     # Only allow a trusted parameter "white list" through.
     def holdings_return_params
-      params.require(:holdings_return).permit(:return_link, :return_link_href, :ticker, :one_day, :last_close, :change, :weight_return, :one_week, :four_weeks, :eight_weeks, :thirteen_weeks)
+      params.require(:holdings_return).permit(:return_link, :return_link_href, :ticker, :one_day, :last_close, :change, :weight_return, :one_week, :four_weeks, :eight_weeks, :thirteen_weeks, :strategy_name, :strategy_id)
     end
 end

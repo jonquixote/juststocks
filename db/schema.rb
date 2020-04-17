@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_183811) do
+ActiveRecord::Schema.define(version: 2020_04_16_024109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,12 +81,47 @@ ActiveRecord::Schema.define(version: 2020_04_15_183811) do
     t.string "current_price"
     t.string "value"
     t.integer "days_held"
+    t.string "sector"
     t.string "strategy_name"
+    t.bigint "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "sector"
-    t.bigint "strategy_id"
     t.index ["strategy_id"], name: "index_holdings_currents_on_strategy_id"
+  end
+
+  create_table "holdings_fundamentals", force: :cascade do |t|
+    t.string "fundamental_link"
+    t.string "fundamental_link_href"
+    t.string "ticker"
+    t.string "return_fundamental"
+    t.string "market_cap"
+    t.string "yield"
+    t.string "p_e"
+    t.string "peg"
+    t.string "roe_ttm"
+    t.string "roi_ttm"
+    t.float "tot_debt_to_eq_ratio"
+    t.string "pr2cfl_per_shr_ttm"
+    t.string "strategy_name"
+    t.bigint "strategy_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["strategy_name"], name: "index_holdings_fundamentals_on_strategy_name"
+  end
+
+  create_table "holdings_historicals", force: :cascade do |t|
+    t.string "historical_link"
+    t.string "historical_link_href"
+    t.string "ticker"
+    t.string "cost"
+    t.string "open_date"
+    t.string "number_of_days"
+    t.string "pct_historical"
+    t.string "strategy_name"
+    t.string "strategy_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["strategy_id"], name: "index_holdings_historicals_on_strategy_id"
   end
 
   create_table "holdings_returns", force: :cascade do |t|
@@ -101,8 +136,11 @@ ActiveRecord::Schema.define(version: 2020_04_15_183811) do
     t.string "four_weeks"
     t.string "eight_weeks"
     t.string "thirteen_weeks"
+    t.string "strategy_name"
+    t.bigint "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["strategy_id"], name: "index_holdings_returns_on_strategy_id"
   end
 
   create_table "stocks", force: :cascade do |t|
