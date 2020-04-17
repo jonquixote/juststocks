@@ -20,6 +20,7 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
     "@firebase/app": "^0.6.2",
+    "@rails/webpacker": "^5.0.1",
     "@types/googlemaps": "^3.39.3",
     "@types/markerclustererplus": "^2.1.33",
     "availity-reactstrap-validation": "^2.6.1",
@@ -73,11 +74,5 @@
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
     "yup": "^0.27.0"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  }
 }
