@@ -7,7 +7,7 @@
     "node": ">=10.15.3"
   },
   "scripts": {
-    "build": "cd client && npm install && npm run build",
+    "start": "node index.js",
     "deploy": "cp -a client/build/. public/",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
