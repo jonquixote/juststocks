@@ -8,9 +8,9 @@
     "yarn": ">=1.16.0"
   },
   "scripts": {
-    "build": "yarn --cwd client install && yarn --cwd client build",
+    "build": "cd client && npm install && npm run build",
     "deploy": "cp -a client/build/. public/",
-    "heroku-postbuild": "yarn build && yarn deploy"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "devDependencies": {
     "node-sass": "^4.11.0"
