@@ -276,7 +276,7 @@ DEPENDENCIES
   shoulda-matchers (~> 3.1)
   spring
   spring-watcher-listen (~> 2.0.0)
-  sqlite3-ruby (= 1.3.1)
+  sqlite3-ruby
   tzinfo-data
   webpacker
 
