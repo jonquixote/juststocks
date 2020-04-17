@@ -7,8 +7,7 @@
     "node": ">=10.15.3"
   },
   "scripts": {
-    "start": "cd client && react-scripts start",
-    "build": "cd client && react-scripts build",
+    "start": "cd client react-scripts start",
     "deploy": "cp -a client/build/. public/"
   },
   "devDependencies": {
