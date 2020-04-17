@@ -11,7 +11,11 @@
     "heroku-postbuild": "yarn build && yarn deploy"
   },
   "devDependencies": {
-    "webpack": "latest",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
     "webpack-dev-server": "latest"
+  },
+  "dependencies": {
+    "@rails/webpacker": "^5.0.1"
   }
 }
