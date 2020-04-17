@@ -2,8 +2,8 @@
   "name": "JustStocks",
   "license": "MIT",
   "engines": {
-    "node": "10.15.3",
-    "yarn": "1.16.0"
+    "node": "13.13.3",
+    "yarn": "1.22.0"
   },
   "scripts": {
     "build": "yarn --cwd client install && yarn --cwd client build",
