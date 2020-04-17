@@ -7,11 +7,9 @@
     "node": ">=10.15.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "cd client && react-scripts build",
-    "test": "cd client && react-scripts test",
-    "eject": "cd client && react-scripts eject",
-    "deploy": "cp -a client/build/. public/"
+    "build": "react-scripts start",
+    "deploy": "cp -a client/build/. public/",
+    "heroku-postbuild": "cd client && npm install && react-scripts build"
   },
   "devDependencies": {
     "node-sass": "^4.11.0"
