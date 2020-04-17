@@ -9,7 +9,7 @@
   "scripts": {
     "build": "react-scripts start",
     "deploy": "cp -a client/build/. public/",
-    "heroku-postbuild": "cd client && npm install && react-scripts build"
+    "heroku-postbuild": "cd client && npm install && npm build"
   },
   "devDependencies": {
     "node-sass": "^4.11.0"
