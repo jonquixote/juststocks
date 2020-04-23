@@ -3,6 +3,11 @@ class Strategy < ApplicationRecord
 	has_one :holdings_return, :class_name => "HoldingsReturn"
 	has_one :holdings_fundamental, :class_name => "HoldingsFundamental"
 	has_one :holdings_historical, :class_name => "HoldingsHistorical"
+	has_one :strategy_summary, :class_name => "StrategySummary"
+	has_one :strategy_summary_stat, :class_name => "StrategySummaryStat"
+	has_one :strategy_trading_stat, :class_name => "StrategyTradingStat"
+	has_one :stats_performance, :class_name => "StatsPerformance"
+	has_one :risk_measurement, :class_name => "RiskMeasurement"
 	default_scope -> { order(created_at: :desc) }
 
 	require 'active_support/all'
@@ -10,35 +15,32 @@ class Strategy < ApplicationRecord
 	require 'json'
 
 	webscraper_key = Rails.application.credentials.dig(:secret_key_webscraper)
-	uri = URI('https://api.webscraper.io/api/v1/scraping-job/2064057/json?api_token=' + webscraper_key)
+	uri = URI('https://api.webscraper.io/api/v1/scraping-job/2086022/json?api_token=' + webscraper_key)
 	res = Net::HTTP.get_response(uri)
 	response = res.body
 
-	# editor = JSON.parse(response.to_json).each_line do |zload|
-	#   xload = JSON.parse(zload)
-	#   value = JSON.parse(xload.to_json)
-	#   strategy = Strategy.create(
- #  	    web_scraper_order: value["web-scraper-order"],
-	#     strategy_name: value["web-scraper-start-url"]
-	#    )
-	# )
-	# end
-	# xload = JSON.parse(response.to_json)
-	# yload = JSON.parse(xload)
+	wload = JSON.parse(response.to_json).each_line do |xload|
+		yload = JSON.parse(xload)
+		remove_nulls = yload.reject { |k, v| v == '' }
+		if remove_nulls["strategy_name"].present?
+			sload = remove_nulls["strategy_name"]
+			@zetload = sload.to_s.gsub("Live Strategies\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t> Unclassified\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t", "")
+			
+		end
+	end
 
-	zload = JSON.parse(response.to_json)
-
+	zload = JSON.parse(wload.lines.first)
+	
 	strategy = Strategy.create(
+	  strategy_name: @zetload.lines.first,
+	  strategy_id: zload["web-scraper-start-url"].to_s.gsub("https:\/\/www.portfolio123.com\/holdings.jsp?portid=", ""),
   	  web_scraper_order: zload["web-scraper-order"],
-	  strategy_name: zload["web-scraper-start-url"]
+	  web_scraper_start_url: zload["web-scraper-start-url"].to_s.gsub("https:\/\/www.portfolio123.com\/holdings.jsp?portid=", "")
 	)
-
 	  json = JSON.parse(response.to_json).each_line do |payload|
 	  pload = JSON.parse(payload)
-	  # pload.gsub('(http|https):\/\/www.portfolio123.com\/holdings.*', '')
-  	  remove_nulls = pload.reject { |k, v| v == '' }
+		  remove_nulls = pload.reject { |k, v| v == '' }
 	  value = JSON.parse(remove_nulls.to_json)
-	  puts value
 	  
 	  if value["Sector"].present?
 	  	HoldingsCurrent.create(
@@ -52,8 +54,8 @@ class Strategy < ApplicationRecord
 			current_price: value["Current Price"],
 			value: value["Value"],
 			days_held: value["Days Held"],
-			strategy_name: strategy.strategy_name,
 			sector: value["Sector"],
+			strategy_name: strategy.strategy_name,
 			strategy_id: strategy.id
 	  	)
 	  elsif value["return-link"].present?
@@ -101,77 +103,72 @@ class Strategy < ApplicationRecord
 			strategy_name: strategy.strategy_name,
 			strategy_id: strategy.id
 		  )
-		# elsif value["summary-link"].present?
-	 #  	  strategy = Strategy.create(
-		#   	strategy_name: value["web-scraper-start-url"]
-		#   )
-		#   Strategy.create(
-		#   	summary_link: value["summary-link"],
-		# 	summary_link_href: value["summary-link-href"],
-		# 	info_name: value["Info-Name"],
-		# 	info_value: value["Info-Value"],
-		# 	stats_name: value["Stats-Name"],
-		# 	stats_value: value["Stats-Value"]
-		#   )
-		# elsif value["statistics-link"].present?
-	 #  	  strategy = Strategy.create(
-		#   	strategy_name: value["web-scraper-start-url"]
-		#   )
-		#   Strategy.create(
-		# 	statistics_link: value["statistics-link"],
-		# 	statistics_link_href: value["statistics-link-href"],
-		# 	return_pct: value["Return (%)"],
-		# 	model: value["Model"],
-		# 	snp_500_spy: value["S&P 500 (SPY)"],
-		# 	twenty_twenty_01: value["2020\/01"],
-		# 	twenty_twenty_02: value["2020\/02"],
-		# 	twenty_twenty_03: value["2020\/03"],
-		# 	twenty_twenty_04: value["2020\/04"],
-		# 	twenty_twenty_05: value["2020\/05"],
-		# 	twenty_twenty_06: value["2020\/06"],
-		# 	twenty_twenty_07: value["2020\/07"],
-		# 	twenty_twenty_08: value["2020\/08"],
-		# 	twenty_twenty_09: value["2020\/09"],
-		# 	twenty_twenty_10: value["2020\/10"],
-		# 	twenty_twenty_11: value["2020\/11"],
-		# 	twenty_twenty_12: value["2020\/12"]
-		#   )
-		# elsif value["charts-link"].present?
-	 #  	  strategy = Strategy.create(
-		#   	strategy_name: value["web-scraper-start-url"]
-		#   )
-		#   Strategy.create(
-		# 	charts_link: value["charts-link"],
-		# 	charts_link_href: value["charts-link-href"]
-		#   )
-		# elsif value["trading-statistics-link"].present?
-	 #  	  strategy = Strategy.create(
-		#   	strategy_name: value["web-scraper-start-url"]
-		#   )
-		#   Strategy.create(
-		# 	trading_statistics_link: value["trading-statistics-link"],
-		# 	trading_statistics_link_href: value["trading-statistics-link-href"],
-		# 	trading_values: value["Trading Values"],
-		# 	trading_summary_names: value["Trading Summary Names"],
-		# 	trading_names: value["Trading Names"],
-		# 	realized_all: value["Realized All"],
-		# 	realized_winners: value["Realized Winners"],
-		# 	realized_losers: value["Realized Losers"],
-		# 	unrealized_all: value["Unrealized All"],
-		# 	unrealized_winners: value["Unrealized Winners"],
-		# 	unrealized_losers: value["Unrealized Losers"]
-		#   )
-		# else value["risk-measurements-stats-link"].present?
-	 #  	  strategy = Strategy.create(
-		#   	strategy_name: value["web-scraper-start-url"]
-		#   )
-		#   Strategy.create(
-		# 	risk_measurements_stats_link: value["risk-measurements-stats-link"],
-		# 	risk_measurements_stats_link_href: value["risk-measurements-stats-link-href"],
-		# 	risk_name: value["Risk Name"],
-		# 	model_risk: value["Model Risk"],
-		# 	snp_500_spy_risk: value["S&P 500 (SPY) Risk"]
-		#   )
+		elsif value["Info-Name"].present?
+		    StrategySummary.create(
+		  	summary_link: value["summary-link"],
+			summary_link_href: value["summary-link-href"],
+			info_name: value["Info-Name"],
+			info_value: value["Info-Value"],
+			strategy_name: strategy.strategy_name,
+			strategy_id: strategy.id
+		  )
+		elsif value["summary-link"].present?
+		    StrategySummaryStat.create(
+		  	summary_link: value["summary-link"],
+			summary_link_href: value["summary-link-href"],
+			stats_name: value["Stats-Name"],
+			stats_value: value["Stats-Value"],
+			strategy_name: strategy.strategy_name,
+			strategy_id: strategy.id
+		  )
+		elsif value["statistics-link"].present?
+		  StatsPerformance.create(
+			statistics_link: value["statistics-link"],
+			statistics_link_href: value["statistics-link-href"],
+			return_pct: value["Return (%)"],
+			model: value["Model"],
+			snp_500_spy: value["S&P 500 (SPY)"],
+			twenty_twenty_01: value["2020\/01"],
+			twenty_twenty_02: value["2020\/02"],
+			twenty_twenty_03: value["2020\/03"],
+			twenty_twenty_04: value["2020\/04"],
+			twenty_twenty_05: value["2020\/05"],
+			twenty_twenty_06: value["2020\/06"],
+			twenty_twenty_07: value["2020\/07"],
+			twenty_twenty_08: value["2020\/08"],
+			twenty_twenty_09: value["2020\/09"],
+			twenty_twenty_10: value["2020\/10"],
+			twenty_twenty_11: value["2020\/11"],
+			twenty_twenty_12: value["2020\/12"],
+			strategy_name: strategy.strategy_name,
+			strategy_id: strategy.id
+		  )
+		elsif value["trading-statistics-link"].present?
+		  StrategyTradingStat.create(
+			trading_statistics_link: value["trading-statistics-link"],
+			trading_statistics_link_href: value["trading-statistics-link-href"],
+			trading_values: value["Trading Values"],
+			trading_summary_names: value["Trading Summary Names"],
+			trading_names: value["Trading Names"],
+			realized_all: value["Realized All"],
+			realized_winners: value["Realized Winners"],
+			realized_losers: value["Realized Losers"],
+			unrealized_all: value["Unrealized All"],
+			unrealized_winners: value["Unrealized Winners"],
+			unrealized_losers: value["Unrealized Losers"],
+			strategy_name: strategy.strategy_name,
+			strategy_id: strategy.id
+		  )
+		else value["risk-measurements-stats-link"].present?
+		  RiskMeasurement.create(
+			risk_measurements_stats_link: value["risk-measurements-stats-link"],
+			risk_measurements_stats_link_href: value["risk-measurements-stats-link-href"],
+			risk_name: value["Risk Name"],
+			model_risk: value["Model Risk"],
+			snp_500_spy_risk: value["S&P 500 (SPY) Risk"],
+			strategy_name: strategy.strategy_name,
+			strategy_id: strategy.id
+		  )
 	 end
 	#  #  Strategy.create(
 	#  #  	web_scraper_order: value["web-scraper-order"],

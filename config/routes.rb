@@ -8,7 +8,13 @@ Rails.application.routes.draw do
   	  resources :holdings_returns
   	  resources :holdings_fundamentals
   	  resources :holdings_historicals
+  	  resources :strategy_summaries
+  	  resources :strategy_summary_stats
+	  resources :strategy_trading_stats
+  	  resources :stats_performances
+	  resources :risk_measurements
 	end
+	resources :webhooks
 	resources :stocks
 	resources :drinks
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_16_024109) do
+ActiveRecord::Schema.define(version: 2020_04_23_102343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,9 +83,11 @@ ActiveRecord::Schema.define(version: 2020_04_16_024109) do
     t.integer "days_held"
     t.string "sector"
     t.string "strategy_name"
-    t.bigint "strategy_id"
+    t.string "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_holdings_currents_on_slug", unique: true
     t.index ["strategy_id"], name: "index_holdings_currents_on_strategy_id"
   end
 
@@ -103,10 +105,12 @@ ActiveRecord::Schema.define(version: 2020_04_16_024109) do
     t.float "tot_debt_to_eq_ratio"
     t.string "pr2cfl_per_shr_ttm"
     t.string "strategy_name"
-    t.bigint "strategy_id"
+    t.string "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["strategy_name"], name: "index_holdings_fundamentals_on_strategy_name"
+    t.string "slug"
+    t.index ["slug"], name: "index_holdings_fundamentals_on_slug", unique: true
+    t.index ["strategy_id"], name: "index_holdings_fundamentals_on_strategy_id"
   end
 
   create_table "holdings_historicals", force: :cascade do |t|
@@ -118,9 +122,11 @@ ActiveRecord::Schema.define(version: 2020_04_16_024109) do
     t.string "number_of_days"
     t.string "pct_historical"
     t.string "strategy_name"
-    t.string "strategy_id"
+    t.bigint "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_holdings_historicals_on_slug", unique: true
     t.index ["strategy_id"], name: "index_holdings_historicals_on_strategy_id"
   end
 
@@ -137,10 +143,54 @@ ActiveRecord::Schema.define(version: 2020_04_16_024109) do
     t.string "eight_weeks"
     t.string "thirteen_weeks"
     t.string "strategy_name"
-    t.bigint "strategy_id"
+    t.string "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_holdings_returns_on_slug", unique: true
     t.index ["strategy_id"], name: "index_holdings_returns_on_strategy_id"
+  end
+
+  create_table "risk_measurements", force: :cascade do |t|
+    t.string "risk_measurements_stats_link"
+    t.string "risk_measurements_stats_link_href"
+    t.string "risk_name"
+    t.string "model_risk"
+    t.string "snp_500_spy_risk"
+    t.string "strategy_name"
+    t.string "strategy_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_risk_measurements_on_slug", unique: true
+    t.index ["strategy_id"], name: "index_risk_measurements_on_strategy_id"
+  end
+
+  create_table "stats_performances", force: :cascade do |t|
+    t.string "statistics_link"
+    t.string "statistics_link_href"
+    t.string "return_pct"
+    t.string "model"
+    t.string "snp_500_spy"
+    t.string "twenty_twenty_01"
+    t.string "twenty_twenty_02"
+    t.string "twenty_twenty_03"
+    t.string "twenty_twenty_04"
+    t.string "twenty_twenty_05"
+    t.string "twenty_twenty_06"
+    t.string "twenty_twenty_07"
+    t.string "twenty_twenty_08"
+    t.string "twenty_twenty_09"
+    t.string "twenty_twenty_10"
+    t.string "twenty_twenty_11"
+    t.string "twenty_twenty_12"
+    t.string "strategy_name"
+    t.string "strategy_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_stats_performances_on_slug", unique: true
+    t.index ["strategy_id"], name: "index_stats_performances_on_strategy_id"
   end
 
   create_table "stocks", force: :cascade do |t|
@@ -235,9 +285,77 @@ ActiveRecord::Schema.define(version: 2020_04_16_024109) do
     t.string "risk_name"
     t.string "model_risk"
     t.string "snp_500_spy_risk"
+    t.string "strategy_name"
+    t.string "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "strategy_summaries", force: :cascade do |t|
+    t.string "summary_link"
+    t.string "summary_link_href"
+    t.string "info_name"
+    t.string "info_value"
     t.string "strategy_name"
+    t.string "strategy_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_strategy_summaries_on_slug", unique: true
+    t.index ["strategy_id"], name: "index_strategy_summaries_on_strategy_id"
+  end
+
+  create_table "strategy_summary_stats", force: :cascade do |t|
+    t.string "summary_link"
+    t.string "summary_link_href"
+    t.string "stats_name"
+    t.string "stats_value"
+    t.string "strategy_name"
+    t.string "strategy_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_strategy_summary_stats_on_slug", unique: true
+    t.index ["strategy_id"], name: "index_strategy_summary_stats_on_strategy_id"
+  end
+
+  create_table "strategy_trading_stats", force: :cascade do |t|
+    t.string "trading_statistics_link"
+    t.string "trading_statistics_link_href"
+    t.string "trading_values"
+    t.string "trading_summary_names"
+    t.string "trading_names"
+    t.string "realized_all"
+    t.string "realized_winners"
+    t.string "realized_losers"
+    t.string "unrealized_all"
+    t.string "unrealized_winners"
+    t.string "unrealized_losers"
+    t.string "strategy_name"
+    t.string "strategy_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_strategy_trading_stats_on_slug", unique: true
+    t.index ["strategy_id"], name: "index_strategy_trading_stats_on_strategy_id"
+  end
+
+  create_table "web_hooks", force: :cascade do |t|
+    t.bigint "scrapingjob_id"
+    t.string "status"
+    t.bigint "sitemap_id"
+    t.string "sitemap_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "webhooks", force: :cascade do |t|
+    t.bigint "scrapingjob_id"
+    t.string "status"
+    t.bigint "sitemap_id"
+    t.string "sitemap_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

@@ -10,7 +10,7 @@ class HoldingsCurrentsController < ApiController
 
   # GET /holdings_currents/1
   def show
-    render json: @holdings_current
+    render json: HoldingsCurrent.where(strategy_name: params[:id])
   end
 
   # POST /holdings_currents
@@ -41,7 +41,7 @@ class HoldingsCurrentsController < ApiController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_holdings_current
-      @holdings_current = HoldingsCurrent.find(params[:id])
+      @holdings_current = HoldingsCurrent.friendly.find_by(strategy_name: params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

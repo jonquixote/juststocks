@@ -9,7 +9,7 @@ class CreateHoldingsHistoricals < ActiveRecord::Migration[6.0]
       t.string :number_of_days
       t.string :pct_historical
       t.string :strategy_name
-      t.string :strategy_id
+      t.bigint :strategy_id
 
       t.timestamps
     end
