@@ -8,7 +8,7 @@ class Strategy < ApplicationRecord
 	has_one :strategy_trading_stat, :class_name => "StrategyTradingStat"
 	has_one :stats_performance, :class_name => "StatsPerformance"
 	has_one :risk_measurement, :class_name => "RiskMeasurement"
-	has_one :webhook, :class_name => "Webhook"
+	belongs_to :webhook, :class_name => "Webhook"
 	default_scope -> { order(created_at: :desc) }
 
 	require 'active_support/all'
