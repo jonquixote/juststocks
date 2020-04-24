@@ -19,6 +19,7 @@ class WebhooksController < ApiController
 
     if @webhook.save
       render json: @webhook, status: :created, location: @webhook
+      Strategy.save_scrape
     else
       render json: @webhook.errors, status: :unprocessable_entity
     end
