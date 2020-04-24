@@ -1,19 +1,19 @@
 class Strategy < ApplicationRecord
-	# has_one :holdings_current, :class_name => "HoldingsCurrent"
-	# has_one :holdings_return, :class_name => "HoldingsReturn"
-	# has_one :holdings_fundamental, :class_name => "HoldingsFundamental"
-	# has_one :holdings_historical, :class_name => "HoldingsHistorical"
-	# has_one :strategy_summary, :class_name => "StrategySummary"
-	# has_one :strategy_summary_stat, :class_name => "StrategySummaryStat"
-	# has_one :strategy_trading_stat, :class_name => "StrategyTradingStat"
-	# has_one :stats_performance, :class_name => "StatsPerformance"
-	# has_one :risk_measurement, :class_name => "RiskMeasurement"
-	# has_one :webhook, :class_name => "Webhook"
-	# default_scope -> { order(created_at: :desc) }
+	has_one :holdings_current, :class_name => "HoldingsCurrent"
+	has_one :holdings_return, :class_name => "HoldingsReturn"
+	has_one :holdings_fundamental, :class_name => "HoldingsFundamental"
+	has_one :holdings_historical, :class_name => "HoldingsHistorical"
+	has_one :strategy_summary, :class_name => "StrategySummary"
+	has_one :strategy_summary_stat, :class_name => "StrategySummaryStat"
+	has_one :strategy_trading_stat, :class_name => "StrategyTradingStat"
+	has_one :stats_performance, :class_name => "StatsPerformance"
+	has_one :risk_measurement, :class_name => "RiskMeasurement"
+	has_one :webhook, :class_name => "Webhook"
+	default_scope -> { order(created_at: :desc) }
 
-	# require 'active_support/all'
-	# require 'faraday'
-	# require 'json'
+	require 'active_support/all'
+	require 'faraday'
+	require 'json'
 
 	# # webscraper_id = Webhook.first.scrapingjob_id.to_s
 	# # webscraper_key = Rails.application.credentials.dig(:secret_key_webscraper)
