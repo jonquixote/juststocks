@@ -61,4 +61,16 @@ class WebhooksController < ApiController
 
     render nothing: true
   end
+
+  def webhookids
+    return @webhookids if defined? @webhookids
+    @webhookids = policy_scope Webhookid.all
+  end
+  helper_method :webhookids
+
+  def webhookid
+    return @webhookid if defined? @webhookid
+    @webhookid = webhooks.find params[:scrapingjob_id]
+  end
+  helper_method :webhookid
 end
