@@ -15,9 +15,9 @@ class Strategy < ApplicationRecord
 	require 'faraday'
 	require 'json'
 
-	# webscraper_id = Webhook.first.scrapingjob_id.to_s
-	# webscraper_key = Rails.application.credentials.dig(:secret_key_webscraper)
-	uri = URI('https://api.webscraper.io/api/v1/scraping-job/2093458/json?api_token=V88D3jo2BzqkOqnOpRwKyRQQIWJ9yENpapKEWqh6Y5SISnTpKLtplCMWk5Mt')
+	webscraper_id = Webhook.first.scrapingjob_id.to_s
+	webscraper_key = Rails.application.credentials.dig(:secret_key_webscraper)
+	uri = URI('https://api.webscraper.io/api/v1/scraping-job/' + webscraper_id + '/json?api_token=V88D3jo2BzqkOqnOpRwKyRQQIWJ9yENpapKEWqh6Y5SISnTpKLtplCMWk5Mt')
 	res = Net::HTTP.get_response(uri)
 	response = res.body
 	puts uri
