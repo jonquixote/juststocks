@@ -20,6 +20,8 @@ gem 'faraday'
 gem 'scenic'
 gem 'friendly_id'
 
+gem 'rack-cors'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
