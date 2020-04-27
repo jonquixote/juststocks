@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   	  resources :stats_performances
 	  resources :risk_measurements
 	end
+  	resources :charts
 	resources :webhooks
 	resources :stocks
 	resources :drinks

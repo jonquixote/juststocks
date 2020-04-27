@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_23_102343) do
+ActiveRecord::Schema.define(version: 2020_04_25_091628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,25 @@ ActiveRecord::Schema.define(version: 2020_04_23_102343) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "charts", id: :serial, force: :cascade do |t|
+    t.datetime "date"
+    t.string "cash"
+    t.string "long_mkt_value"
+    t.string "short_mkt_value"
+    t.string "hedge_mkt_value"
+    t.string "cash_added"
+    t.string "total_equity"
+    t.string "accrued_dividends"
+    t.float "leverage_ratio"
+    t.float "positions"
+    t.float "spy"
+    t.float "return"
+    t.float "bench_return"
+    t.string "strategy_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "drinks", force: :cascade do |t|
