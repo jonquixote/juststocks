@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-# AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
-# Webhook.create!(scrapingjob_id: 2093458, status: 'finished', sitemap_id: 261826, sitemap_name: 'AM-data')
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+Webhook.create!(scrapingjob_id: 2093458, status: 'finished', sitemap_id: 261826, sitemap_name: 'AM-data')
 
 Chart.create!([
   {
