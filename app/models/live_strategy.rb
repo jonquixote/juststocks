@@ -22,7 +22,7 @@ class LiveStrategy < ApplicationRecord
 	  if value["Inception"].present?
 	   LiveStrategy.create(
 		name: value["Name"],
-		type: value["Type"],
+		thype: value["Type"],
 		rank_system: value["RankSystem"],
 		inception: value["Inception"],
 		update: value["Update"],

@@ -46,6 +46,6 @@ class LiveStrategiesController < ApiController
 
     # Only allow a trusted parameter "white list" through.
     def live_strategy_params
-      params.require(:live_strategy).permit(:name, :type, :rank_system, :inception, :update, :rebal, :holdings, :annual, :sharpe_ratio, :d_down)
+      params.require(:live_strategy).permit(:name, :thype, :rank_system, :inception, :update, :rebal, :holdings, :annual, :sharpe_ratio, :d_down)
     end
 end

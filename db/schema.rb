@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(version: 2020_05_15_202921) do
 
   create_table "live_strategies", force: :cascade do |t|
     t.string "name"
-    t.string "type"
+    t.string "thype"
     t.string "rank_system"
     t.string "inception"
     t.string "update"
