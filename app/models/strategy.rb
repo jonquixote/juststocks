@@ -16,12 +16,10 @@ class Strategy < ApplicationRecord
 
   def self.save_scrape
 	webscraper_id = Webhook.first.scrapingjob_id.to_s
-	puts webscraper_id
 	webscraper_key = Rails.application.credentials.dig(:secret_key_webscraper)
 	uri = URI('https://api.webscraper.io/api/v1/scraping-job/' + webscraper_id + '/json?api_token=V88D3jo2BzqkOqnOpRwKyRQQIWJ9yENpapKEWqh6Y5SISnTpKLtplCMWk5Mt')
 	res = Net::HTTP.get_response(uri)
 	response = res.body
-	puts uri
 
 	wload = JSON.parse(response.to_json).each_line do |xload|
 		yload = JSON.parse(xload)

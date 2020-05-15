@@ -9,24 +9,10 @@ class LiveStrategy < ApplicationRecord
 
   def self.save_scrape
 	webscraper_id = Webhook.first.scrapingjob_id.to_s
-	puts webscraper_id
 	webscraper_key = Rails.application.credentials.dig(:secret_key_webscraper)
 	uri = URI('https://api.webscraper.io/api/v1/scraping-job/' + webscraper_id + '/json?api_token=V88D3jo2BzqkOqnOpRwKyRQQIWJ9yENpapKEWqh6Y5SISnTpKLtplCMWk5Mt')
 	res = Net::HTTP.get_response(uri)
 	response = res.body
-	puts uri
-
-	wload = JSON.parse(response.to_json).each_line do |xload|
-		yload = JSON.parse(xload)
-		remove_nulls = yload.reject { |k, v| v == '' }
-		if remove_nulls["strategy_name"].present?
-			sload = remove_nulls["strategy_name"]
-			@zetload = sload.to_s.gsub("Live Strategies\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t> Unclassified\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t", "")	
-		end
-	end
-
-    zload = JSON.parse(wload.lines.first)
-
 
 	json = JSON.parse(response.to_json).each_line do |payload|
 	  pload = JSON.parse(payload)
