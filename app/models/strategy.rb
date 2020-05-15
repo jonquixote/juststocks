@@ -39,12 +39,14 @@ class Strategy < ApplicationRecord
 	value = JSON.parse(remove_nulls.to_json)
 		
 	if value["Sector"].present? || value["return-link"].present? || value["fundamental-link"].present? || value["historical-link"].present? || value["Info-Name"].present? || value["summary-link"].present? || value["statistics-link"].present? || value["trading-statistics-link"].present? || value["risk-measurements-stats-link"].present?
-		strategy = Strategy.create(
+	  @strategy = Strategy.create(
 		strategy_name: @zetload.lines.first,
 		strategy_id: zload["web-scraper-start-url"].to_s.gsub("https:\/\/www.portfolio123.com\/holdings.jsp?portid=", ""),
 		web_scraper_order: zload["web-scraper-order"],
 		web_scraper_start_url: zload["web-scraper-start-url"].to_s.gsub("https:\/\/www.portfolio123.com\/holdings.jsp?portid=", "")
-		)
+	  )
+	else
+	  @strategy = {strategy_name: "none", id:0}
 	end
 
 	if value["Sector"].present?
