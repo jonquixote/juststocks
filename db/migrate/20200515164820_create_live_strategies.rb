@@ -5,7 +5,7 @@ class CreateLiveStrategies < ActiveRecord::Migration[6.0]
       t.string :thype
       t.string :rank_system
       t.string :inception
-      t.string :update
+      t.string :upDate
       t.string :rebal
       t.string :holdings
       t.string :annual

@@ -7,7 +7,7 @@ class LiveStrategy < ApplicationRecord
   require 'faraday'
   require 'json'
 
-  def self.save_scrape
+  def self.save_live_scrape
 	webscraper_id = Webhook.first.scrapingjob_id.to_s
 	webscraper_key = Rails.application.credentials.dig(:secret_key_webscraper)
 	uri = URI('https://api.webscraper.io/api/v1/scraping-job/' + webscraper_id + '/json?api_token=V88D3jo2BzqkOqnOpRwKyRQQIWJ9yENpapKEWqh6Y5SISnTpKLtplCMWk5Mt')
@@ -25,7 +25,7 @@ class LiveStrategy < ApplicationRecord
 		thype: value["Type"],
 		rank_system: value["RankSystem"],
 		inception: value["Inception"],
-		update: value["Update"],
+		upDate: value["Update"],
 		rebal: value["Rebal"],
 		holdings:value["Holdings"],
 		annual: value["Annual"],

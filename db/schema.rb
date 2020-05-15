@@ -167,7 +167,7 @@ ActiveRecord::Schema.define(version: 2020_05_15_202921) do
     t.string "thype"
     t.string "rank_system"
     t.string "inception"
-    t.string "update"
+    t.string "upDate"
     t.string "rebal"
     t.string "holdings"
     t.string "annual"
