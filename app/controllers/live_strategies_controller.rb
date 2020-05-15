@@ -1,4 +1,4 @@
-class LiveStrategiesController < ApplicationController
+class LiveStrategiesController < ApiController
   before_action :set_live_strategy, only: [:show, :update, :destroy]
 
   # GET /live_strategies
@@ -10,7 +10,7 @@ class LiveStrategiesController < ApplicationController
 
   # GET /live_strategies/1
   def show
-    render json: @live_strategy
+    render json: LiveStrategy.where(strategy_name: params[:id])
   end
 
   # POST /live_strategies
@@ -41,7 +41,7 @@ class LiveStrategiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_live_strategy
-      @live_strategy = LiveStrategy.find(params[:id])
+      @live_strategy = HoldingsReturn.friendly.find_by(strategy_name: params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

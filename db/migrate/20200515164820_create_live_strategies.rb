@@ -11,6 +11,8 @@ class CreateLiveStrategies < ActiveRecord::Migration[6.0]
       t.string :annual
       t.string :sharpe_ratio
       t.string :d_down
+      t.string :strategy_name
+      t.bigint :strategy_id
 
       t.timestamps
     end

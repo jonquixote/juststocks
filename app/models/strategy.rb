@@ -8,6 +8,7 @@ class Strategy < ApplicationRecord
 	has_one :strategy_trading_stat, :class_name => "StrategyTradingStat"
 	has_one :stats_performance, :class_name => "StatsPerformance"
 	has_one :risk_measurement, :class_name => "RiskMeasurement"
+	has_one :live_strategy, :class_name => "LiveStrategy"
 	default_scope -> { order(created_at: :desc) }
 
 	require 'active_support/all'
@@ -42,7 +43,7 @@ class Strategy < ApplicationRecord
 	  )
 	  json = JSON.parse(response.to_json).each_line do |payload|
 	  pload = JSON.parse(payload)
-		  remove_nulls = pload.reject { |k, v| v == '' }
+	  remove_nulls = pload.reject { |k, v| v == '' }
 	  value = JSON.parse(remove_nulls.to_json)
 	  
 	  if value["Sector"].present?
@@ -183,7 +184,9 @@ class Strategy < ApplicationRecord
 			holdings:value["Holdings"],
 			annual: value["Annual"],
 			sharpe_ratio: value["SharpeRatio"],
-			d_down: value["DDown"]
+			d_down: value["DDown"],
+			strategy_name: value["Name"],
+			strategy_id: strategy.id
 		  )
 	    end
 	  end
