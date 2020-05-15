@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_25_091628) do
+ActiveRecord::Schema.define(version: 2020_05_15_164820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2020_04_25_091628) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "charts", id: :serial, force: :cascade do |t|
+  create_table "charts", force: :cascade do |t|
     t.datetime "date"
     t.string "cash"
     t.string "long_mkt_value"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 2020_04_25_091628) do
     t.integer "days_held"
     t.string "sector"
     t.string "strategy_name"
-    t.string "strategy_id"
+    t.bigint "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 2020_04_25_091628) do
     t.float "tot_debt_to_eq_ratio"
     t.string "pr2cfl_per_shr_ttm"
     t.string "strategy_name"
-    t.string "strategy_id"
+    t.bigint "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
@@ -162,12 +162,27 @@ ActiveRecord::Schema.define(version: 2020_04_25_091628) do
     t.string "eight_weeks"
     t.string "thirteen_weeks"
     t.string "strategy_name"
-    t.string "strategy_id"
+    t.bigint "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
     t.index ["slug"], name: "index_holdings_returns_on_slug", unique: true
     t.index ["strategy_id"], name: "index_holdings_returns_on_strategy_id"
+  end
+
+  create_table "live_strategies", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.string "rank_system"
+    t.string "inception"
+    t.string "update"
+    t.string "rebal"
+    t.string "holdings"
+    t.string "annual"
+    t.string "sharpe_ratio"
+    t.string "d_down"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "risk_measurements", force: :cascade do |t|
@@ -204,7 +219,7 @@ ActiveRecord::Schema.define(version: 2020_04_25_091628) do
     t.string "twenty_twenty_11"
     t.string "twenty_twenty_12"
     t.string "strategy_name"
-    t.string "strategy_id"
+    t.bigint "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
@@ -316,7 +331,7 @@ ActiveRecord::Schema.define(version: 2020_04_25_091628) do
     t.string "info_name"
     t.string "info_value"
     t.string "strategy_name"
-    t.string "strategy_id"
+    t.bigint "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
@@ -330,7 +345,7 @@ ActiveRecord::Schema.define(version: 2020_04_25_091628) do
     t.string "stats_name"
     t.string "stats_value"
     t.string "strategy_name"
-    t.string "strategy_id"
+    t.bigint "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
@@ -351,21 +366,12 @@ ActiveRecord::Schema.define(version: 2020_04_25_091628) do
     t.string "unrealized_winners"
     t.string "unrealized_losers"
     t.string "strategy_name"
-    t.string "strategy_id"
+    t.bigint "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
     t.index ["slug"], name: "index_strategy_trading_stats_on_slug", unique: true
     t.index ["strategy_id"], name: "index_strategy_trading_stats_on_strategy_id"
-  end
-
-  create_table "web_hooks", force: :cascade do |t|
-    t.bigint "scrapingjob_id"
-    t.string "status"
-    t.bigint "sitemap_id"
-    t.string "sitemap_name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "webhooks", force: :cascade do |t|

@@ -1,0 +1,2 @@
+class LiveStrategy < ApplicationRecord
+end
