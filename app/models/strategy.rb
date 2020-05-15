@@ -173,7 +173,7 @@ class Strategy < ApplicationRecord
 			strategy_name: strategy.strategy_name,
 			strategy_id: strategy.id
 		  )
-		else zload["Inception"].present?
+		else value["Inception"].present?
 		  LiveStrategy.create(
 			name: value["Name"],
 			type: value["Type"],
