@@ -18,6 +18,5 @@ Rails.application.routes.draw do
 	end
 	resources :webhooks
 	resources :stocks
-	resources :drinks
   end
 end

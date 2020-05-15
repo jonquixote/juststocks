@@ -81,14 +81,6 @@ ActiveRecord::Schema.define(version: 2020_05_15_202921) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "drinks", force: :cascade do |t|
-    t.string "product"
-    t.string "category"
-    t.integer "rating"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "holdings_currents", force: :cascade do |t|
     t.string "ticker"
     t.string "weight"
