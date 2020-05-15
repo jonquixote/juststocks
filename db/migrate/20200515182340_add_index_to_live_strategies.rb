@@ -1,6 +1,5 @@
 class AddIndexToLiveStrategies < ActiveRecord::Migration[6.0]
   def change
-    add_column :live_strategies, :slug, :string
-    add_index :live_strategies, :slug, unique: true
+    add_index :live_strategies, :strategy_id
   end
 end
