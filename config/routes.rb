@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   scope '/api' do
+  resources :charts
+  resources :live_strategies
 	resources :strategies do
 	  resources :holdings_currents
   	resources :holdings_returns
@@ -13,9 +15,7 @@ Rails.application.routes.draw do
 	  resources :strategy_trading_stats
   	resources :stats_performances
 	  resources :risk_measurements
-    resources :live_strategies
 	end
-  resources :charts
 	resources :webhooks
 	resources :stocks
 	resources :drinks
