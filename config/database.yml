@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: juststocks_production
-  username: juststocks
-  password: <%= ENV['JUSTSTOCKS_DATABASE_PASSWORD'] %>
+  username: rails
+  password: 9c2702179e9b8690b3b2b7e7870b02fc
