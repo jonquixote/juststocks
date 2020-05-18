@@ -150,10 +150,10 @@ class Strategy < ApplicationRecord
 	elsif value["trading-statistics-link"].present?
 	  StrategyTradingStat.create(
 		trading_statistics_link: value["trading-statistics-link"],
-		trading_statistics_link_href: value["trading-statistics-link-href"],
+		trading_statistics_link_href: value["Trading Names"],
 		trading_values: value["Trading Values"],
-		trading_summary_names: value["Trading Summary Names"],
-		trading_names: value["Trading Names"],
+		trading_summary_names: value["Overall Winners"],
+		trading_names: value["Overall Value"],
 		realized_all: value["Realized All"],
 		realized_winners: value["Realized Winners"],
 		realized_losers: value["Realized Losers"],
