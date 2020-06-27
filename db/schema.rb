@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_15_202921) do
+ActiveRecord::Schema.define(version: 2020_06_25_125316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,22 +63,16 @@ ActiveRecord::Schema.define(version: 2020_05_15_202921) do
   end
 
   create_table "charts", force: :cascade do |t|
-    t.datetime "date"
-    t.string "cash"
-    t.string "long_mkt_value"
-    t.string "short_mkt_value"
-    t.string "hedge_mkt_value"
-    t.string "cash_added"
-    t.string "total_equity"
-    t.string "accrued_dividends"
-    t.float "leverage_ratio"
-    t.float "positions"
-    t.float "spy"
+    t.string "date"
     t.float "return"
     t.float "bench_return"
     t.string "strategy_name"
+    t.bigint "strategy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_charts_on_slug", unique: true
+    t.index ["strategy_id"], name: "index_charts_on_strategy_id"
   end
 
   create_table "holdings_currents", force: :cascade do |t|
@@ -100,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_05_15_202921) do
     t.string "slug"
     t.index ["slug"], name: "index_holdings_currents_on_slug", unique: true
     t.index ["strategy_id"], name: "index_holdings_currents_on_strategy_id"
+    t.index ["strategy_name"], name: "index_holdings_currents_on_strategy_name"
   end
 
   create_table "holdings_fundamentals", force: :cascade do |t|
@@ -178,6 +173,46 @@ ActiveRecord::Schema.define(version: 2020_05_15_202921) do
     t.string "slug"
     t.index ["name"], name: "index_live_strategies_on_name"
     t.index ["slug"], name: "index_live_strategies_on_slug", unique: true
+  end
+
+  create_table "live_strategies_performances", force: :cascade do |t|
+    t.string "name"
+    t.string "annual"
+    t.string "annualBench"
+    t.string "ytd"
+    t.string "benchYtd"
+    t.string "oneYear"
+    t.string "benchOneYear"
+    t.string "totRet"
+    t.string "benchRet"
+    t.string "oneDay"
+    t.string "oneWeek"
+    t.string "fourWeeks"
+    t.string "thirteenWeeks"
+    t.string "twentySixWeeks"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["name"], name: "index_live_strategies_performances_on_name"
+    t.index ["slug"], name: "index_live_strategies_performances_on_slug", unique: true
+  end
+
+  create_table "live_strategies_statistics", force: :cascade do |t|
+    t.string "name"
+    t.string "annual"
+    t.string "dDown"
+    t.string "stdDev"
+    t.string "sharpeRatio"
+    t.string "sortinoRatio"
+    t.string "benchmarkCorrel"
+    t.string "alpha"
+    t.string "realizedWinners"
+    t.string "annualTurnover"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["name"], name: "index_live_strategies_statistics_on_name"
+    t.index ["slug"], name: "index_live_strategies_statistics_on_slug", unique: true
   end
 
   create_table "risk_measurements", force: :cascade do |t|

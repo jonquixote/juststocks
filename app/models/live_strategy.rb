@@ -30,7 +30,37 @@ class LiveStrategy < ApplicationRecord
 		holdings:value["Holdings"],
 		annual: value["Annual"],
 		sharpe_ratio: value["SharpeRatio"],
-		d_down: value["DDown"],
+		d_down: value["DDown"]
+	   )
+	  elsif value["BenchYTD"].present?
+	   LiveStrategiesPerformance.create(
+	  	name: value["Name"],
+		annual: value["Annual"],
+		annualBench: value["AnnualBench"],
+		ytd: value["YTD"],
+		benchYtd: value["BenchYTD"],
+		oneYear: value["1Year"],
+		benchOneYear: value["Bench1Y"],
+		totRet: value["TotRet"],
+		benchRet: value["BenchRet"],
+		oneDay: value["1Day"],
+		oneWeek: value["1Wk"],
+		fourWeeks: value["4Wk"],
+		thirteenWeeks: value["13Wk"],
+		twentySixWeeks: value["26Wk"]
+	   )
+	  elsif value["BenchmarkCorrel"].present?
+	   LiveStrategiesStatistic.create(
+	   	name: value["Name"],
+		annual: value["Annual"],
+		dDown: value["DDown"],
+		stdDev: value["StdDev"],
+		sharpeRatio: value["SharpeRatio"],
+		sortinoRatio: value["SortinoRatio"],
+		benchmarkCorrel: value["BenchmarkCorrel"],
+		alpha: value["Alpha"],
+		realizedWinners: value["RealizedWinners"],
+		annualTurnover: value["AnnualTurnover"]
 	   )
 	  end
 	end

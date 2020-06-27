@@ -5,15 +5,17 @@ Rails.application.routes.draw do
   scope '/api' do
   resources :charts
   resources :live_strategies
+  resources :live_strategies_performances
+  resources :live_strategies_statistics
 	resources :strategies do
 	  resources :holdings_currents
-  	resources :holdings_returns
-  	resources :holdings_fundamentals
-  	resources :holdings_historicals
-  	resources :strategy_summaries
-  	resources :strategy_summary_stats
+  	  resources :holdings_returns
+  	  resources :holdings_fundamentals
+  	  resources :holdings_historicals
+  	  resources :strategy_summaries
+  	  resources :strategy_summary_stats
 	  resources :strategy_trading_stats
-  	resources :stats_performances
+  	  resources :stats_performances
 	  resources :risk_measurements
 	end
 	resources :webhooks

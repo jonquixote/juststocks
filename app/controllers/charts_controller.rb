@@ -10,7 +10,7 @@ class ChartsController < ApiController
 
   # GET /charts/1
   def show
-    render json: @chart
+    render json: Chart.where(strategy_name: params[:id])
   end
 
   # POST /charts
@@ -41,11 +41,11 @@ class ChartsController < ApiController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_chart
-      @chart = Chart.find(params[:id])
+      @chart = Chart.friendly.find_by(strategy_name: params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def chart_params
-      params.require(:chart).permit(:date, :cash, :long_mkt_value, :short_mkt_value, :hedge_mkt_value, :cash_added, :total_equity, :accrued_dividends, :leverage_ratio, :positions, :spy, :return, :bench_return)
+      params.require(:chart).permit(:date, :return, :bench_return, :strategy_name, :strategy_id)
     end
 end
